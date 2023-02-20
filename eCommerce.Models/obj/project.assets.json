@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.Models\\eCommerce.Models.csproj",
+      "projectUniqueName": "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.Models\\eCommerce.Models.csproj",
       "projectName": "eCommerce.Models",
-      "projectPath": "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.Models\\eCommerce.Models.csproj",
+      "projectPath": "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.Models\\eCommerce.Models.csproj",
       "packagesPath": "C:\\Users\\fabricio.costa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.Models\\obj\\",
+      "outputPath": "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

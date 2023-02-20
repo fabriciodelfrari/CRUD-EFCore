@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.API\\eCommerce.API.csproj": {}
+    "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.API\\eCommerce.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.API\\eCommerce.API.csproj": {
+    "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.API\\eCommerce.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.API\\eCommerce.API.csproj",
+        "projectUniqueName": "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.API\\eCommerce.API.csproj",
         "projectName": "eCommerce.API",
-        "projectPath": "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.API\\eCommerce.API.csproj",
+        "projectPath": "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.API\\eCommerce.API.csproj",
         "packagesPath": "C:\\Users\\fabricio.costa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.API\\obj\\",
+        "outputPath": "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -32,8 +32,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.Models\\eCommerce.Models.csproj": {
-                "projectPath": "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.Models\\eCommerce.Models.csproj"
+              "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.Models\\eCommerce.Models.csproj": {
+                "projectPath": "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.Models\\eCommerce.Models.csproj"
               }
             }
           }
@@ -52,7 +52,19 @@
               "target": "Package",
               "version": "[7.0.3, )"
             },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.3, )"
             },
@@ -83,14 +95,14 @@
         }
       }
     },
-    "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.Models\\eCommerce.Models.csproj": {
+    "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.Models\\eCommerce.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.Models\\eCommerce.Models.csproj",
+        "projectUniqueName": "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.Models\\eCommerce.Models.csproj",
         "projectName": "eCommerce.Models",
-        "projectPath": "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.Models\\eCommerce.Models.csproj",
+        "projectPath": "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.Models\\eCommerce.Models.csproj",
         "packagesPath": "C:\\Users\\fabricio.costa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fabricio.costa\\Desktop\\EFCore\\eCommerce\\eCommerce.Models\\obj\\",
+        "outputPath": "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
