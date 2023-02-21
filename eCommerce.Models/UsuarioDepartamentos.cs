@@ -12,5 +12,10 @@ namespace eCommerce.Models
         public int UsuarioId { get; set; }
         public int DepartamentoId { get; set; }
 
+        public UsuarioDepartamentos()
+        {
+
+        }
+
     }
 }

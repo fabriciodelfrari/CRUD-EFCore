@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using eCommerce.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace eCommerce.API.Database
 {
@@ -8,5 +9,8 @@ namespace eCommerce.API.Database
         {
 
         }
+
+
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }
