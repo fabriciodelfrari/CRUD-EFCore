@@ -478,3 +478,9 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+/eCommerce.API/*.json
+/eCommerce.API/*.json
+/eCommerce.API/obj
+/eCommerce.API/bin
+/eCommerce.Models/bin
+/eCommerce.Models/obj
