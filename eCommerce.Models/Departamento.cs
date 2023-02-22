@@ -13,7 +13,7 @@ namespace eCommerce.Models
 
         public Departamento()
         {
-
+            Id = 0;
         }
     }
 }

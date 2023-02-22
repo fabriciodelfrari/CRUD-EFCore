@@ -18,7 +18,7 @@ namespace eCommerce.API.Controllers
             }
 
             [HttpGet("GetAll")]
-            public List<Usuario> GetAll()
+            public ICollection<Usuario> GetAll()
             {
                 return _usuarioRepository.GetAll();
             }
