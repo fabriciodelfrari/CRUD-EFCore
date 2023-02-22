@@ -19,6 +19,13 @@ namespace eCommerce.Models
         public string Numero { get; set; }
         public string? Complemento { get; set; }
 
+
+        public EnderecoEntrega()
+        {
+
+        }
+
+
         public EnderecoEntrega(int id, 
             int usuarioId,
             string? nomeEndereço, 

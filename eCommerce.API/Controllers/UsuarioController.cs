@@ -1,5 +1,6 @@
 ﻿using eCommerce.API.Repositories;
 using eCommerce.Models;
+using eCommerce.Models.Enum;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerce.API.Controllers
@@ -16,61 +17,61 @@ namespace eCommerce.API.Controllers
                 _usuarioRepository = usuarioRepository;
             }
 
-            [HttpGet]
+            [HttpGet("GetAll")]
             public List<Usuario> GetAll()
             {
                 return _usuarioRepository.GetAll();
             }
 
-            [HttpGet("{id}")]
+            [HttpGet("GetById/{id}")]
             public Usuario GetById(int id)
             {
                 return _usuarioRepository.GetById(id);
             }
 
-            [HttpGet("name/{name}")]
-            public Usuario GetByName(string name)
+            [HttpGet("GetByName")]
+            public Usuario GetByName([FromBody] string nome)
             {
-                return _usuarioRepository.GetByName(name);
+                return _usuarioRepository.GetByName(nome);
             }
 
-            [HttpGet("email/{email}")]
-            public Usuario GetByEmail(string email)
+            [HttpGet("GetByEmail")]
+            public Usuario GetByEmail([FromBody] string email)
             {
                 return _usuarioRepository.GetByEmail(email);
             }
 
-            [HttpGet("cpf/{cpf}")]
-            public Usuario GetByCPF(string cpf)
+            [HttpGet("GetByCpf")]
+            public Usuario GetByCPF([FromBody] string cpf)
             {
                 return _usuarioRepository.GetByCPF(cpf);
             }
 
-            [HttpGet("rg/{rg}")]
-            public Usuario GetByRG(string rg)
+            [HttpGet("GetByRg")]
+            public Usuario GetByRG([FromBody] string rg)
             {
                 return _usuarioRepository.GetByRG(rg);
             }
 
-            [HttpGet("situacao/{situacao}")]
-            public List<Usuario> GetBySituacaoCadastral(string situacao)
+            [HttpGet("GetBySituacaoCadastral/{situacao}")]
+            public List<Usuario> GetBySituacaoCadastral(SituacaoCadastral situacao)
             {
                 return _usuarioRepository.GetBySituacaoCadastral(situacao);
             }
 
-            [HttpPost]
+            [HttpPost("Add")]
             public void Add([FromBody] Usuario usuario)
             {
                 _usuarioRepository.Add(usuario);
             }
 
-            [HttpPut("{id}")]
+            [HttpPut("Update")]
             public void Update([FromBody] Usuario usuario)
             {
                 _usuarioRepository.Update(usuario);
             }
 
-            [HttpDelete("{id}")]
+            [HttpDelete("Delete/{id}")]
             public void Delete(int id)
             {
                 _usuarioRepository.Delete(id);

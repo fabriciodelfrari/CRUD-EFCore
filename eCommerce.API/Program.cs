@@ -10,10 +10,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<eCommerceContext>(
-    options => 
-    options.UseSqlServer(configuration.GetConnectionString("eCommerce")
-    
+    options =>
+    options.UseSqlServer(configuration.GetConnectionString("eCommerce"))
+
 );
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 

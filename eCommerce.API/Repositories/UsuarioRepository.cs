@@ -1,56 +1,83 @@
-﻿using eCommerce.Models;
+﻿using eCommerce.API.Database;
+using eCommerce.Models;
+using eCommerce.Models.Enum;
 
 namespace eCommerce.API.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {
+
+        private readonly eCommerceContext _db;
+
+        public UsuarioRepository(eCommerceContext db)
+        {
+            _db = db;
+        }
+
         public List<Usuario> GetAll()
         {
-            throw new NotImplementedException();
+            return _db.Usuarios.ToList();
         }
 
         public Usuario GetByCPF(string cpf)
         {
-            throw new NotImplementedException();
+            return _db.Usuarios.FirstOrDefault(u => u.CPF == cpf, null)!;
         }
 
         public Usuario GetByEmail(string email)
         {
-            throw new NotImplementedException();
+            return _db.Usuarios.FirstOrDefault(u => u.Email == email, null)!;
         }
 
         public Usuario GetById(int id)
         {
-            throw new NotImplementedException();
+            return _db.Usuarios.Find(id)!;
         }
 
-        public Usuario GetByName(string name)
+        public Usuario GetByName(string nome)
         {
-            throw new NotImplementedException();
+            return _db.Usuarios.FirstOrDefault(u => u.Nome == nome, null)!;
         }
 
-        public Usuario GetByRG(string RG)
+        public Usuario GetByRG(string rg)
         {
-            throw new NotImplementedException();
+            return _db.Usuarios.FirstOrDefault(u => u.RG == rg, null)!;
         }
 
-        public List<Usuario> GetBySituacaoCadastral(string situacao)
+        public List<Usuario> GetBySituacaoCadastral(SituacaoCadastral situacao)
         {
-            throw new NotImplementedException();
+            return _db.Usuarios.Where(u => u.SituacaoCadastral == situacao).ToList();
         }
-        public void Add(Usuario usuario)
+        public Usuario Add(Usuario usuario)
         {
-            throw new NotImplementedException();
+            _db.Usuarios.Add(usuario);
+
+            _db.SaveChanges();
+
+            return _db.Usuarios.FirstOrDefault(u => u == usuario)!;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            var usuario = _db.Usuarios.Find(id);
+
+            if(usuario != null)
+            {
+                _db.Usuarios.Remove(usuario);
+
+                _db.SaveChanges();
+
+                return true;
+            }
+
+            return false;
         }
 
         public void Update(Usuario usuario)
         {
-            throw new NotImplementedException();
+            _db.Usuarios.Update(usuario);
+            _db.SaveChanges();
+
         }
     }
 }

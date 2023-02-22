@@ -1,4 +1,5 @@
 ﻿using eCommerce.Models;
+using eCommerce.Models.Enum;
 
 namespace eCommerce.API.Repositories
 {
@@ -10,10 +11,10 @@ namespace eCommerce.API.Repositories
         Usuario GetByEmail(string email);
         Usuario GetByCPF(string cpf);
         Usuario GetByRG(string RG);
-        List<Usuario> GetBySituacaoCadastral(string situacao);
-        void Add(Usuario usuario);
+        List<Usuario> GetBySituacaoCadastral(SituacaoCadastral situacao);
+        Usuario Add(Usuario usuario);
         void Update(Usuario usuario);
-        void Delete(int id);
+        bool Delete(int id);
 
 
     }

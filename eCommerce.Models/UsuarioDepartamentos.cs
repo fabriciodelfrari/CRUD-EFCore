@@ -10,11 +10,11 @@ namespace eCommerce.Models
     {
         public int Id { get; set; }
         public int UsuarioId { get; set; }
-        public int DepartamentoId { get; set; }
+        public ICollection<Departamento> Departamentos { get; set; }
 
         public UsuarioDepartamentos()
         {
-
+          
         }
 
     }

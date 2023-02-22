@@ -16,6 +16,16 @@ namespace eCommerce.Models
         public ICollection<EnderecoEntrega>? EnderecosEntrega { get; set; }
         public ICollection<UsuarioDepartamentos>? Departamentos { get; set; }
 
+
+        public Usuario()
+        {
+            Id = 0;
+            Nome = string.Empty;
+            Email = string.Empty;
+            CPF = string.Empty;
+            
+        }
+
         public Usuario(int id,
             string nome,
             string email,
@@ -23,6 +33,7 @@ namespace eCommerce.Models
             string cpf,
             string? nomeMae,
             SituacaoCadastral situacaoCadastral,
+            DateTime dataCadastro,
             Contato? contato,
             ICollection<EnderecoEntrega>? enderecosEntrega,
             ICollection<UsuarioDepartamentos>? departamentos)
@@ -34,7 +45,7 @@ namespace eCommerce.Models
             CPF = cpf ?? throw new ArgumentNullException(nameof(cpf));
             NomeMae = nomeMae;
             SituacaoCadastral = situacaoCadastral;
-            DataCadastro = DateTime.UtcNow;
+            DataCadastro = dataCadastro;
             Contato = contato;
             EnderecosEntrega = enderecosEntrega;
             Departamentos = departamentos;
