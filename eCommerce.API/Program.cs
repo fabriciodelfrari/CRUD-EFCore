@@ -14,11 +14,22 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<eCommerceContext>(
     options =>
     options.UseSqlServer(configuration.GetConnectionString("eCommerce"))
-
 );
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 var app = builder.Build();
+
+#region Atualizar banco de dados com as migrações pendentes
+//garante que todas as migrações pendentes sejam aplicadas ao banco de dados toda vez que a API é iniciada
+
+var scope = app.Services.CreateScope();
+
+var services = scope.ServiceProvider;
+
+var context = services.GetRequiredService<eCommerceContext>();
+
+context.Database.Migrate();
+#endregion
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

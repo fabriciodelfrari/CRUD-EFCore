@@ -93,6 +93,11 @@
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
+      },
+      "runtimes": {
+        "win10-x64": {
+          "#import": []
+        }
       }
     },
     "C:\\Users\\fabricio.costa\\Desktop\\eCommerce-EFCore\\eCommerce.Models\\eCommerce.Models.csproj": {
@@ -164,6 +169,11 @@
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win10-x64": {
+          "#import": []
         }
       }
     }
