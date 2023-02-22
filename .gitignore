@@ -3,6 +3,32 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+
+# arquivos gerados automaticamente
+bin/
+obj/
+
+# arquivos de backup
+*~
+
+# arquivos de configuração
+appsettings.json
+*.config
+*.sln
+*.csproj.user
+.vscode/
+.idea/
+*.pidb
+*.user
+*.suo
+*.cache
+
+# outras pastas e arquivos
+node_modules/
+logs/
+*.log
+*.zip
+
 # User-specific files
 *.rsuser
 *.suo
