@@ -1,6 +1,7 @@
 ﻿using eCommerce.API.Database;
 using eCommerce.Models;
 using eCommerce.Models.Enum;
+using Microsoft.EntityFrameworkCore;
 
 namespace eCommerce.API.Repositories
 {
@@ -14,39 +15,36 @@ namespace eCommerce.API.Repositories
             _db = db;
         }
 
-        public List<Usuario> GetAll()
+        public async Task<ICollection<Usuario>> GetAll()
         {
-            return _db.Usuarios.ToList();
+
+            return await _db.Usuarios
+                .Include(u => u.Contato)
+                .Include(u => u.EnderecosEntrega)
+                .Include(u => u.Departamentos)
+                    .ThenInclude(ud => ud.Departamento)
+                .ToListAsync()!;
         }
 
-        public Usuario GetByCPF(string cpf)
+        public async Task<Usuario> GetById(int id)
         {
-            return _db.Usuarios.FirstOrDefault(u => u.CPF == cpf, null)!;
+            return await _db.Usuarios
+                .Include(u => u.Contato)
+                .Include(u => u.EnderecosEntrega)
+                .Include(u => u.Departamentos)
+                    .ThenInclude(ud => ud.Departamento)
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public Usuario GetByEmail(string email)
+        public async Task<ICollection<Usuario>> GetBySituacaoCadastral(SituacaoCadastral situacao)
         {
-            return _db.Usuarios.FirstOrDefault(u => u.Email == email, null)!;
-        }
-
-        public Usuario GetById(int id)
-        {
-            return _db.Usuarios.Find(id)!;
-        }
-
-        public Usuario GetByName(string nome)
-        {
-            return _db.Usuarios.FirstOrDefault(u => u.Nome == nome, null)!;
-        }
-
-        public Usuario GetByRG(string rg)
-        {
-            return _db.Usuarios.FirstOrDefault(u => u.RG == rg, null)!;
-        }
-
-        public List<Usuario> GetBySituacaoCadastral(SituacaoCadastral situacao)
-        {
-            return _db.Usuarios.Where(u => u.SituacaoCadastral == situacao).ToList();
+            return await _db.Usuarios
+                .Include(u => u.Contato)
+                .Include(u => u.EnderecosEntrega)
+                .Include(u => u.Departamentos)
+                    .ThenInclude(ud => ud.Departamento)
+                .Where(u => u.SituacaoCadastral == situacao)
+                .ToListAsync()!;
         }
         public Usuario Add(Usuario usuario)
         {
@@ -61,7 +59,7 @@ namespace eCommerce.API.Repositories
         {
             var usuario = _db.Usuarios.Find(id);
 
-            if(usuario != null)
+            if (usuario != null)
             {
                 _db.Usuarios.Remove(usuario);
 
@@ -73,11 +71,20 @@ namespace eCommerce.API.Repositories
             return false;
         }
 
-        public void Update(Usuario usuario)
+        public async Task<Usuario> Update(Usuario usuario)
         {
             _db.Usuarios.Update(usuario);
             _db.SaveChanges();
 
+            return await _db.Usuarios
+                .Include(u => u.Contato)
+                .Include(u => u.EnderecosEntrega)
+                .Include(u => u.Departamentos)
+                    .ThenInclude(ud => ud.Departamento)
+                .FirstOrDefaultAsync(u => u.Id == usuario.Id);
+
         }
+
+       
     }
 }

@@ -40,7 +40,7 @@ namespace eCommerce.Models
             Nome = string.Empty;
             Email = string.Empty;
             CPF = string.Empty;
-            
+
         }
 
         public Usuario(int id,

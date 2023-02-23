@@ -14,11 +14,19 @@ namespace eCommerce.Models
         [Required]
         public int UsuarioId { get; set; }
         [Required]
-        public ICollection<Departamento> Departamentos { get; set; }
+        public Departamento Departamento { get; set; }
 
         public UsuarioDepartamentos()
         {
           
+        }
+
+        public UsuarioDepartamentos(int usuarioId, Departamento departamento)
+        {
+            Id = 0;
+            UsuarioId = usuarioId;
+            Departamento = departamento;
+
         }
 
     }
