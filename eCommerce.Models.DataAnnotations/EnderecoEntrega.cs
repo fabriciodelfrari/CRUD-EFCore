@@ -10,36 +10,14 @@ namespace eCommerce.Models
     public class EnderecoEntrega
     {
         public int Id { get; set; }
-        [Required]
         public int UsuarioId { get; set; }
-        [MaxLength(20)]
-        public string? NomeEndereço { get; set; } //descrição do endereço, exemplo: Casa, trabalho, etc
-
-        [Required]
-        [MaxLength(8)]
+        public string? NomeEndereco { get; set; } //descrição do endereço, exemplo: Casa, trabalho, etc
         public string CEP { get; set; }
-
-        [Required]
-        [MaxLength(2)]
         public string Estado { get; set; }
-
-        [Required]
-        [MaxLength(50)]
         public string Cidade { get; set; }
-
-        [Required]
-        [MaxLength(50)]
         public string Bairro { get; set; }
-
-        [Required]
-        [MaxLength(60)]
         public string Endereco { get; set; }
-
-        [Required]
-        [MaxLength(8)]
         public string Numero { get; set; }
-
-        [MaxLength(50)]
         public string? Complemento { get; set; }
 
 
@@ -62,7 +40,7 @@ namespace eCommerce.Models
         {
             Id = id;
             UsuarioId = usuarioId;
-            NomeEndereço = nomeEndereço;
+            NomeEndereco = nomeEndereço;
             CEP = cep ?? throw new ArgumentNullException(nameof(cep));
             Estado = estado ?? throw new ArgumentNullException(nameof(estado));
             Cidade = cidade ?? throw new ArgumentNullException(nameof(cidade));
