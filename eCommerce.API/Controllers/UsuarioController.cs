@@ -48,11 +48,11 @@ namespace eCommerce.API.Controllers
         }
 
         [HttpGet("GetById/{id}")]
-        public async Task<ActionResult> GetById(int id)
+        public async Task<ActionResult<Usuario>> GetById(int id)
         {
             try
             {
-                var usuario = _usuarioRepository.GetById(id);
+                var usuario = await _usuarioRepository.GetById(id);
 
                 if (usuario == null)
                     return NotFound();
