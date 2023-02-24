@@ -18,30 +18,42 @@ namespace eCommerce.API.Repositories
         public async Task<ICollection<Usuario>> GetAll()
         {
 
-            return await _db.Usuarios
+            var usuarios =  await _db.Usuarios
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
                 .ToListAsync()!;
+
+            if(usuarios.Count < 1)
+                return null;
+
+            return usuarios;
         }
 
         public async Task<Usuario> GetById(int id)
         {
-            return await _db.Usuarios
+            var usuario = await _db.Usuarios
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
                 .FirstOrDefaultAsync(u => u.Id == id)!;
+
+           return usuario;
         }
 
         public async Task<ICollection<Usuario>> GetBySituacaoCadastral(SituacaoCadastral situacao)
         {
-            return await _db.Usuarios
+            var usuarios =  await _db.Usuarios
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
                 .Where(u => u.SituacaoCadastral == situacao)
                 .ToListAsync()!;
+
+            if(usuarios.Count < 1)
+                return null;
+
+            return usuarios;
         }
         public Usuario Add(Usuario usuario)
         {
