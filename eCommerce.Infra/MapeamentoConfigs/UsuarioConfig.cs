@@ -62,9 +62,18 @@ namespace eCommerce.Infra.MapeamentoConfigs
                 .HasMaxLength(19)
                 .IsRequired(true);
 
-            builder.HasOne(u => u.Contato);
-            builder.HasMany(u => u.EnderecosEntrega);
-            builder.HasMany(u => u.Departamentos);
+            builder.HasOne(u => u.Contato)
+                .WithOne(c => c.Usuario)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(u => u.EnderecosEntrega)
+                .WithOne(e => e.Usuario)
+                .HasForeignKey(e => e.UsuarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(u => u.Departamentos)
+                .WithMany(d => d.Usuarios)
+                .UsingEntity(x => x.ToTable("UsuarioDepartamentos"));
         }
     }
 }

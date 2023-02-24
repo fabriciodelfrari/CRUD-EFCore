@@ -22,7 +22,6 @@ namespace eCommerce.API.Repositories
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
-                    .ThenInclude(ud => ud.Departamento)
                 .ToListAsync()!;
         }
 
@@ -32,8 +31,7 @@ namespace eCommerce.API.Repositories
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
-                    .ThenInclude(ud => ud.Departamento)
-                .FirstOrDefaultAsync(u => u.Id == id);
+                .FirstOrDefaultAsync(u => u.Id == id)!;
         }
 
         public async Task<ICollection<Usuario>> GetBySituacaoCadastral(SituacaoCadastral situacao)
@@ -42,7 +40,6 @@ namespace eCommerce.API.Repositories
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
-                    .ThenInclude(ud => ud.Departamento)
                 .Where(u => u.SituacaoCadastral == situacao)
                 .ToListAsync()!;
         }
@@ -80,8 +77,7 @@ namespace eCommerce.API.Repositories
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
-                    .ThenInclude(ud => ud.Departamento)
-                .FirstOrDefaultAsync(u => u.Id == usuario.Id);
+                .FirstOrDefaultAsync(u => u.Id == usuario.Id)!;
 
         }
 

@@ -2,6 +2,7 @@
 using eCommerce.Models;
 using eCommerce.Models.Enum;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace eCommerce.API.Controllers
 {
@@ -11,16 +12,30 @@ namespace eCommerce.API.Controllers
         public class UsuarioController : ControllerBase
         {
             private readonly IUsuarioRepository _usuarioRepository;
+            private readonly JsonSerializerSettings jsonSerializerSettings;
 
             public UsuarioController(IUsuarioRepository usuarioRepository)
             {
                 _usuarioRepository = usuarioRepository;
+                jsonSerializerSettings = new JsonSerializerSettings {
+                    Formatting = Formatting.Indented,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
             }
 
             [HttpGet("GetAll")]
-            public Task<ICollection<Usuario>> GetAll()
-            {
-                return _usuarioRepository.GetAll();
+            public async Task<ActionResult> GetAll()
+            {   
+                var usuarios =  await _usuarioRepository.GetAll();
+
+                if(usuarios == null ||usuarios.Count < 1)
+                    return NotFound();
+
+                var jsonColecao = JsonConvert.SerializeObject(usuarios, jsonSerializerSettings);
+
+                return Ok(jsonColecao);
+               
+                
             }
 
         [HttpGet("GetById/{id}")]
