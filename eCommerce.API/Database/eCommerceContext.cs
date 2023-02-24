@@ -107,6 +107,9 @@ namespace eCommerce.API.Database
                .HasColumnType("nvarchar")
                .HasMaxLength(11)
                .HasDefaultValue(null);
+            
+            //relacionamento entre tabelas e comportamento cascate ao deletar usuário
+            modelBuilder.Entity<Contato>().HasOne<Usuario>().WithMany().HasForeignKey(u => u.UsuarioId).OnDelete(DeleteBehavior.Cascade);
 
             #endregion
 
@@ -140,6 +143,8 @@ namespace eCommerce.API.Database
             .HasColumnName("UsuarioId")
             .HasColumnType("int")
             .IsRequired(true);
+            //relacionamento entre tabelas e comportamento cascate ao deletar usuário
+            modelBuilder.Entity<UsuarioDepartamentos>().HasOne<Usuario>().WithMany().HasForeignKey(u => u.UsuarioId).OnDelete(DeleteBehavior.Cascade);
             #endregion
 
             #region Tabela EnderecosEntrega
@@ -218,7 +223,9 @@ namespace eCommerce.API.Database
              .HasColumnType("nvarchar")
              .HasMaxLength(50)
              .HasDefaultValue(null);
-
+            
+            //relacionamento entre tabelas e comportamento cascate ao deletar usuário
+            modelBuilder.Entity<EnderecoEntrega>().HasOne<Usuario>().WithMany().HasForeignKey(u => u.UsuarioId).OnDelete(DeleteBehavior.Cascade);
             #endregion
         }
 
