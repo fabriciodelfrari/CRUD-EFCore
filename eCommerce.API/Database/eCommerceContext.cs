@@ -75,6 +75,9 @@ namespace eCommerce.API.Database
                 .HasMaxLength(19)
                 .IsRequired(true);
 
+            modelBuilder.Entity<Usuario>().HasOne(u => u.Contato);
+            modelBuilder.Entity<Usuario>().HasMany(u => u.EnderecosEntrega);
+            modelBuilder.Entity<Usuario>().HasMany(u => u.Departamentos);
             #endregion
 
             #region Tabela Contatos
