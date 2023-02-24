@@ -18,33 +18,42 @@ namespace eCommerce.API.Repositories
         public async Task<ICollection<Usuario>> GetAll()
         {
 
-            return await _db.Usuarios
+            var usuarios =  await _db.Usuarios
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
-                    .ThenInclude(ud => ud.Departamento)
                 .ToListAsync()!;
+
+            if(usuarios.Count < 1)
+                return null;
+
+            return usuarios;
         }
 
         public async Task<Usuario> GetById(int id)
         {
-            return await _db.Usuarios
+            var usuario = await _db.Usuarios
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
-                    .ThenInclude(ud => ud.Departamento)
-                .FirstOrDefaultAsync(u => u.Id == id);
+                .FirstOrDefaultAsync(u => u.Id == id)!;
+
+           return usuario;
         }
 
         public async Task<ICollection<Usuario>> GetBySituacaoCadastral(SituacaoCadastral situacao)
         {
-            return await _db.Usuarios
+            var usuarios =  await _db.Usuarios
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
-                    .ThenInclude(ud => ud.Departamento)
                 .Where(u => u.SituacaoCadastral == situacao)
                 .ToListAsync()!;
+
+            if(usuarios.Count < 1)
+                return null;
+
+            return usuarios;
         }
         public Usuario Add(Usuario usuario)
         {
@@ -80,8 +89,7 @@ namespace eCommerce.API.Repositories
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
-                    .ThenInclude(ud => ud.Departamento)
-                .FirstOrDefaultAsync(u => u.Id == usuario.Id);
+                .FirstOrDefaultAsync(u => u.Id == usuario.Id)!;
 
         }
 

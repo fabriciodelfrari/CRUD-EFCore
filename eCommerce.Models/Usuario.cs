@@ -15,7 +15,7 @@ namespace eCommerce.Models
         public DateTime DataCadastro { get; set; }
         public Contato? Contato { get; set; }
         public ICollection<EnderecoEntrega>? EnderecosEntrega { get; set; }
-        public ICollection<UsuarioDepartamentos>? Departamentos { get; set; }
+        public ICollection<Departamento>? Departamentos { get; set; }
 
 
         public Usuario()
@@ -37,7 +37,7 @@ namespace eCommerce.Models
             DateTime dataCadastro,
             Contato? contato,
             ICollection<EnderecoEntrega>? enderecosEntrega,
-            ICollection<UsuarioDepartamentos>? departamentos)
+            ICollection<Departamento>? departamentos)
         {
             Id = id;
             Nome = nome ?? throw new ArgumentNullException(nameof(nome));

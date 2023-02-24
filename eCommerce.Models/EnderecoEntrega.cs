@@ -10,7 +10,7 @@ namespace eCommerce.Models
     public class EnderecoEntrega
     {
         public int Id { get; set; }
-        public int UsuarioId { get; set; }
+        public int UsuarioId {get; set;}
         public string? NomeEndereco { get; set; } //descrição do endereço, exemplo: Casa, trabalho, etc
         public string CEP { get; set; }
         public string Estado { get; set; }
@@ -19,6 +19,7 @@ namespace eCommerce.Models
         public string Endereco { get; set; }
         public string Numero { get; set; }
         public string? Complemento { get; set; }
+        public Usuario Usuario {get; set;}
 
 
         public EnderecoEntrega()
@@ -36,7 +37,8 @@ namespace eCommerce.Models
             string bairro,
             string endereco,
             string numero,
-            string? complemento)
+            string? complemento,
+            Usuario usuario)
         {
             Id = id;
             UsuarioId = usuarioId;
@@ -48,6 +50,7 @@ namespace eCommerce.Models
             Endereco = endereco ?? throw new ArgumentNullException(nameof(endereco));
             Numero = numero ?? throw new ArgumentNullException(nameof(numero));
             Complemento = complemento;
+            Usuario = usuario;
         }
     }
 }
