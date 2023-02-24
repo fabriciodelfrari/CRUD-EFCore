@@ -1,5 +1,6 @@
-﻿using eCommerce.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using eCommerce.Models;
+using eCommerce.Infra.MapeamentoConfigs;
 
 namespace eCommerce.API.Database
 {
@@ -16,6 +17,18 @@ namespace eCommerce.API.Database
         public DbSet<Departamento> Departamentos { get; set; }
         public DbSet<UsuarioDepartamentos> UsuarioDepartamentos { get; set; }
         public DbSet<EnderecoEntrega> EnderecosEntrega { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.ApplyConfiguration(new UsuarioConfig()); //indica o mapeamento da model Usuario
+            modelBuilder.ApplyConfiguration(new ContatoConfig()); //indica o mapeamento da modell Contato
+            modelBuilder.ApplyConfiguration(new DepartamentoConfig()); //indica o mapeamento da model Departamento
+            modelBuilder.ApplyConfiguration(new UsuarioDepartamentosConfig()); //indica o mapeamento da model UsuarioDepartamento
+            modelBuilder.ApplyConfiguration(new EnderecoEntregaConfig()); //indica o mapeamento da model EnderecoEntrega
+            
+        }
 
     }
 }

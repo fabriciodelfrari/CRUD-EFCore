@@ -10,10 +10,7 @@ namespace eCommerce.Models
     public class UsuarioDepartamentos
     {
         public int Id { get; set; }
-
-        [Required]
         public int UsuarioId { get; set; }
-        [Required]
         public Departamento Departamento { get; set; }
 
         public UsuarioDepartamentos()

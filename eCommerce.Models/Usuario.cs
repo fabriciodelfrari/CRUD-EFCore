@@ -1,4 +1,5 @@
 ﻿using eCommerce.Models.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace eCommerce.Models
 {
@@ -14,7 +15,7 @@ namespace eCommerce.Models
         public DateTime DataCadastro { get; set; }
         public Contato? Contato { get; set; }
         public ICollection<EnderecoEntrega>? EnderecosEntrega { get; set; }
-        public ICollection<UsuarioDepartamentos>? UsuarioDepartamentos { get; set; }
+        public ICollection<UsuarioDepartamentos>? Departamentos { get; set; }
 
 
         public Usuario()
@@ -23,7 +24,7 @@ namespace eCommerce.Models
             Nome = string.Empty;
             Email = string.Empty;
             CPF = string.Empty;
-            
+
         }
 
         public Usuario(int id,
@@ -36,7 +37,7 @@ namespace eCommerce.Models
             DateTime dataCadastro,
             Contato? contato,
             ICollection<EnderecoEntrega>? enderecosEntrega,
-            ICollection<UsuarioDepartamentos>? usuarioDepartamentos)
+            ICollection<UsuarioDepartamentos>? departamentos)
         {
             Id = id;
             Nome = nome ?? throw new ArgumentNullException(nameof(nome));
@@ -48,7 +49,7 @@ namespace eCommerce.Models
             DataCadastro = dataCadastro;
             Contato = contato;
             EnderecosEntrega = enderecosEntrega;
-            UsuarioDepartamentos = usuarioDepartamentos;
+            Departamentos = departamentos;
         }
     }
 }
