@@ -100,7 +100,7 @@ namespace eCommerce.API.Repositories
             if (usuario == null)
                 throw new Exception("Usuário não encontrado no banco de dados.");
 
-            if (usuario.EnderecosEntrega.Contains(enderecoEntrega))
+            if (UsuarioJaPossuiEnderecoCadastrado(enderecoEntrega))
                 throw new Exception("Usuário já possui este endereço cadastrado.");
 
             if (usuario.EnderecosEntrega == null)
@@ -110,8 +110,24 @@ namespace eCommerce.API.Repositories
 
             _db.SaveChanges();
 
+            usuario = await GetById(enderecoEntrega.UsuarioId); //garantir que o usuário retornado é o que está no banco
+
             return usuario;
 
+        }
+
+
+        private bool UsuarioJaPossuiEnderecoCadastrado(EnderecoEntrega enderecoEntrega)
+        {
+            return _db.EnderecosEntrega
+                        .Any(e => e.UsuarioId == enderecoEntrega.UsuarioId
+                        && e.CEP == enderecoEntrega.CEP
+                        && e.Estado == enderecoEntrega.Estado
+                        && e.Cidade == enderecoEntrega.Cidade
+                        && e.Bairro == enderecoEntrega.Bairro
+                        && e.Endereco == enderecoEntrega.Endereco
+                        && e.Numero == enderecoEntrega.Numero
+                        && e.Complemento == enderecoEntrega.Complemento);
         }
 
 

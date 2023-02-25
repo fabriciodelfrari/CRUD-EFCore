@@ -95,6 +95,8 @@ namespace eCommerce.API.Controllers
             {
                 var usuarioCadastrado = _usuarioRepository.Add(usuario);
 
+                var obj = JsonConvert.SerializeObject(usuarioCadastrado, jsonSerializerSettings);
+
                 return Ok(usuarioCadastrado);
             }
             catch (Exception e)
