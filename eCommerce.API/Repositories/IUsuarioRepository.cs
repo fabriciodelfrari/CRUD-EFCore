@@ -11,7 +11,7 @@ namespace eCommerce.API.Repositories
         Usuario Add(Usuario usuario);
         Task<Usuario> Update(Usuario usuario);
         bool Delete(int id);
-
+        Task<Usuario> AddEndereco(EnderecoEntrega enderecoEntrega);
 
     }
 }

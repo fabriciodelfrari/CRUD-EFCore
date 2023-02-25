@@ -18,13 +18,13 @@ namespace eCommerce.API.Repositories
         public async Task<ICollection<Usuario>> GetAll()
         {
 
-            var usuarios =  await _db.Usuarios
+            var usuarios = await _db.Usuarios
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
                 .ToListAsync()!;
 
-            if(usuarios.Count < 1)
+            if (usuarios.Count < 1)
                 return null;
 
             return usuarios;
@@ -38,19 +38,19 @@ namespace eCommerce.API.Repositories
                 .Include(u => u.Departamentos)
                 .FirstOrDefaultAsync(u => u.Id == id)!;
 
-           return usuario;
+            return usuario;
         }
 
         public async Task<ICollection<Usuario>> GetBySituacaoCadastral(SituacaoCadastral situacao)
         {
-            var usuarios =  await _db.Usuarios
+            var usuarios = await _db.Usuarios
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
                 .Where(u => u.SituacaoCadastral == situacao)
                 .ToListAsync()!;
 
-            if(usuarios.Count < 1)
+            if (usuarios.Count < 1)
                 return null;
 
             return usuarios;
@@ -93,6 +93,27 @@ namespace eCommerce.API.Repositories
 
         }
 
-       
+        public async Task<Usuario> AddEndereco(EnderecoEntrega enderecoEntrega)
+        {
+            var usuario = await GetById(enderecoEntrega.UsuarioId);
+
+            if (usuario == null)
+                throw new Exception("Usuário não encontrado no banco de dados.");
+
+            if (usuario.EnderecosEntrega.Contains(enderecoEntrega))
+                throw new Exception("Usuário já possui este endereço cadastrado.");
+
+            if (usuario.EnderecosEntrega == null)
+                usuario.EnderecosEntrega = new List<EnderecoEntrega>();
+
+            usuario.EnderecosEntrega.Add(enderecoEntrega);
+
+            _db.SaveChanges();
+
+            return usuario;
+
+        }
+
+
     }
 }

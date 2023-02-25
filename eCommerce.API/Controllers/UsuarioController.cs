@@ -104,6 +104,33 @@ namespace eCommerce.API.Controllers
 
         }
 
+         [HttpPost("Add/Endereco")]
+        public async Task<ActionResult> Add([FromBody] EnderecoEntrega enderecoEntrega)
+        {
+            try
+            {   
+                var resposta = string.Empty;
+                var usuario = await _usuarioRepository.AddEndereco(enderecoEntrega);
+
+                if(!usuario.EnderecosEntrega.Contains(enderecoEntrega)){
+
+                    resposta = JsonConvert.SerializeObject(new {Mensagem = "Endereço não cadastrado."}, jsonSerializerSettings);
+
+                    return BadRequest(resposta);
+                }
+
+                resposta = JsonConvert.SerializeObject(new { Mensagem = "Endereço cadastrado." }, jsonSerializerSettings);
+                
+                return Ok(resposta);
+                
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
         [HttpPut("Update")]
         public ActionResult Update([FromBody] Usuario usuario)
         {

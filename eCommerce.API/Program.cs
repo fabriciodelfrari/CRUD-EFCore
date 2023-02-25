@@ -16,11 +16,14 @@ builder.Services.AddDbContext<eCommerceContext>(
     options.UseSqlServer(configuration.GetConnectionString("eCommerce"))
 );
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IDepartamentoRepository, DepartamentoRepository>();
+
+
 
 var app = builder.Build();
 
-#region Atualizar banco de dados com as migrações pendentes
-//garante que todas as migrações pendentes sejam aplicadas ao banco de dados toda vez que a API é iniciada
+#region Atualizar banco de dados com as migraï¿½ï¿½es pendentes
+//garante que todas as migraï¿½ï¿½es pendentes sejam aplicadas ao banco de dados toda vez que a API ï¿½ iniciada
 
 var scope = app.Services.CreateScope();
 

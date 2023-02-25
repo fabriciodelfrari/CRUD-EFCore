@@ -19,7 +19,7 @@ namespace eCommerce.Models
         public string Endereco { get; set; }
         public string Numero { get; set; }
         public string? Complemento { get; set; }
-        public Usuario Usuario {get; set;}
+        public Usuario? Usuario {get; set;}
 
 
         public EnderecoEntrega()
@@ -38,7 +38,7 @@ namespace eCommerce.Models
             string endereco,
             string numero,
             string? complemento,
-            Usuario usuario)
+            Usuario? usuario)
         {
             Id = id;
             UsuarioId = usuarioId;
