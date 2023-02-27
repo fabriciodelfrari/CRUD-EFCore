@@ -95,7 +95,33 @@ namespace eCommerce.API.Controllers
             {
                 var usuarioCadastrado = _usuarioRepository.Add(usuario);
 
-                return Ok(usuarioCadastrado);
+                var obj = JsonConvert.SerializeObject(usuarioCadastrado, jsonSerializerSettings);
+
+                return Ok(obj);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
+        [HttpPost("Add/Endereco")]
+        public async Task<ActionResult> AddEndereco([FromBody] EnderecoEntrega enderecoEntrega)
+        {
+            try
+            {
+                var resposta = string.Empty;
+                var usuario = await _usuarioRepository.AddEndereco(enderecoEntrega);
+
+                if (!usuario.EnderecosEntrega.Contains(enderecoEntrega))
+                    throw new Exception("Endereço não cadastrado.");
+
+
+                resposta = JsonConvert.SerializeObject(new { Mensagem = "Endereço cadastrado." }, jsonSerializerSettings);
+
+                return Ok(resposta);
+
             }
             catch (Exception e)
             {
@@ -118,7 +144,24 @@ namespace eCommerce.API.Controllers
             {
                 return BadRequest(JsonConvert.SerializeObject(e.Message, jsonSerializerSettings));
             }
-            
+
+        }
+
+        [HttpPut("Update/Endereco")]
+        public async Task<ActionResult> UpdateEndereco([FromBody] EnderecoEntrega enderecoEntrega)
+        {
+
+            try
+            {
+                var usuarioAlterado = await _usuarioRepository.UpdateEndereco(enderecoEntrega);
+
+                return Ok(JsonConvert.SerializeObject(usuarioAlterado, jsonSerializerSettings));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(JsonConvert.SerializeObject(e.Message, jsonSerializerSettings));
+            }
+
         }
 
         [HttpDelete("Delete/{id}")]
@@ -126,15 +169,42 @@ namespace eCommerce.API.Controllers
         {
             try
             {
-                 _usuarioRepository.Delete(id);
+                _usuarioRepository.Delete(id);
 
-                 return Ok();
+                return Ok();
             }
             catch (Exception e)
             {
                 return BadRequest(JsonConvert.SerializeObject(e.Message, jsonSerializerSettings));
             }
-           
+
+        }
+
+
+        [HttpDelete("Remove/Endereco")]
+        public async Task<ActionResult> RemoveEndereco([FromBody] EnderecoEntrega enderecoEntrega)
+        {
+            try
+            {
+                var resposta = string.Empty;
+                var usuario = await _usuarioRepository.RemoveEndereco(enderecoEntrega);
+
+                if (usuario.EnderecosEntrega.Contains(enderecoEntrega))
+                {
+
+                    throw new Exception("O endereço não foi removido.");
+                }
+
+                resposta = JsonConvert.SerializeObject(new { Mensagem = "Endereço removido." }, jsonSerializerSettings);
+
+                return Ok(resposta);
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
         }
     }
 }
