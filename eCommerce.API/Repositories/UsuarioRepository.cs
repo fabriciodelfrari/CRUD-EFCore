@@ -116,6 +116,55 @@ namespace eCommerce.API.Repositories
 
         }
 
+        public async Task<Usuario> UpdateEndereco(EnderecoEntrega enderecoEntrega){
+
+            var usuario = await GetById(enderecoEntrega.UsuarioId);
+
+            if (!UsuarioJaPossuiEnderecoCadastrado(enderecoEntrega))
+                throw new Exception("Usuário não possui este endereço cadastrado.");
+
+            try
+            {
+                var endereco = usuario.EnderecosEntrega.First(e => e.Id == enderecoEntrega.Id);
+
+                endereco.NomeEndereco = enderecoEntrega.NomeEndereco;
+                endereco.CEP = enderecoEntrega.CEP;
+                endereco.Estado = enderecoEntrega.Estado;
+                endereco.Cidade = enderecoEntrega.Cidade;
+                endereco.Bairro = enderecoEntrega.Bairro;
+                endereco.Endereco = enderecoEntrega.Endereco;
+                endereco.Numero = enderecoEntrega.Numero;
+                endereco.Complemento = enderecoEntrega.Complemento;
+
+                await _db.SaveChangesAsync();
+
+                return usuario;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Ocorreu um erro ao alterar o endereço.", e);
+            }
+        }
+
+        public async Task<Usuario> RemoveEndereco(EnderecoEntrega enderecoEntrega)
+        {
+            var usuario = await GetById(enderecoEntrega.UsuarioId);
+
+            if (!UsuarioJaPossuiEnderecoCadastrado(enderecoEntrega))
+                throw new Exception("Usuário não possui este endereço cadastrado.");
+
+            try
+            {
+                usuario.EnderecosEntrega.Remove(usuario.EnderecosEntrega.First(e => e.Id == enderecoEntrega.Id));
+                _db.SaveChanges();
+
+                return usuario;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Ocorreu um erro ao excluir endereço.", e);
+            }
+        }
 
         private bool UsuarioJaPossuiEnderecoCadastrado(EnderecoEntrega enderecoEntrega)
         {
