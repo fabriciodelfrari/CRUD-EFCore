@@ -1,5 +1,6 @@
 ﻿using eCommerce.Models;
 using eCommerce.Models.Enum;
+using eCommerce.Models.ViewModels;
 
 namespace eCommerce.API.Repositories
 {
@@ -14,6 +15,8 @@ namespace eCommerce.API.Repositories
         Task<Usuario> AddEndereco(EnderecoEntrega enderecoEntrega);
         Task<Usuario> RemoveEndereco(EnderecoEntrega enderecoEntrega);
         Task<Usuario> UpdateEndereco(EnderecoEntrega enderecoEntrega);
+        Task<Usuario> AddDepartamento(ViewModelUsuarioDepartamento usuarioDepartamento);
+        Task<Usuario> RemoveDepartamento(ViewModelUsuarioDepartamento usuarioDepartamento);
 
     }
 }

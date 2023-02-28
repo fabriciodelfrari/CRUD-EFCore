@@ -1,6 +1,7 @@
 ﻿using eCommerce.API.Database;
 using eCommerce.Models;
 using eCommerce.Models.Enum;
+using eCommerce.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace eCommerce.API.Repositories
@@ -116,7 +117,8 @@ namespace eCommerce.API.Repositories
 
         }
 
-        public async Task<Usuario> UpdateEndereco(EnderecoEntrega enderecoEntrega){
+        public async Task<Usuario> UpdateEndereco(EnderecoEntrega enderecoEntrega)
+        {
 
             var usuario = await GetById(enderecoEntrega.UsuarioId);
 
@@ -166,6 +168,56 @@ namespace eCommerce.API.Repositories
             }
         }
 
+
+        public async Task<Usuario> AddDepartamento(ViewModelUsuarioDepartamento usuarioDepartamento)
+        {
+            var usuario = await GetById(usuarioDepartamento.UsuarioId);
+           var departamento = _db.Departamentos.Find(usuarioDepartamento.Id);
+
+
+            if (usuario == null)
+                throw new Exception("Usuário não encontrado no banco de dados."); 
+
+            if(departamento == null)
+                throw new Exception("Departamento informado não existe.");
+
+            if(usuario.Departamentos == null)
+                usuario.Departamentos = new List<Departamento>();
+
+            if (DepartamentoJaVinculadoAoUsuario(usuario, departamento))
+                throw new Exception("Usuário já possui este endereço cadastrado.");
+
+            
+            
+            usuario.Departamentos.Add(departamento);
+
+            _db.SaveChanges();
+
+            return usuario;
+        }
+    
+        public async Task<Usuario> RemoveDepartamento(ViewModelUsuarioDepartamento usuarioDepartamento)
+        {
+            var usuario = await GetById(usuarioDepartamento.UsuarioId);
+            var departamento = _db.Departamentos.Find(usuarioDepartamento.Id);
+
+            if (usuario == null)
+                throw new Exception("Usuário não encontrado no banco de dados."); 
+            
+            if(departamento == null)
+                throw new Exception("Departamento informado não existe.");
+
+            if(usuario.Departamentos == null)
+                throw new Exception("Usuário não possui departamentos cadastrados.");
+
+            
+            usuario.Departamentos.Remove(usuario.Departamentos.FirstOrDefault(d => d.Id == departamento.Id)!);
+
+            _db.SaveChanges();
+
+            return usuario;
+        }
+
         private bool UsuarioJaPossuiEnderecoCadastrado(EnderecoEntrega enderecoEntrega)
         {
             return _db.EnderecosEntrega
@@ -179,6 +231,10 @@ namespace eCommerce.API.Repositories
                         && e.Complemento == enderecoEntrega.Complemento);
         }
 
+        private bool DepartamentoJaVinculadoAoUsuario(Usuario usuario, Departamento departamento)
+        {
+            return usuario.Departamentos!.Any(d => d.Nome == departamento.Nome);
+        }
 
     }
 }

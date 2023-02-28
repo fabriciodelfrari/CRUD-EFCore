@@ -1,6 +1,7 @@
 ﻿using eCommerce.API.Repositories;
 using eCommerce.Models;
 using eCommerce.Models.Enum;
+using eCommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -130,6 +131,30 @@ namespace eCommerce.API.Controllers
 
         }
 
+        [HttpPost("Add/Departamento")]
+        public async Task<ActionResult> AddDepartamento([FromBody] ViewModelUsuarioDepartamento usuarioDepartamento)
+        {
+            try
+            {
+                var resposta = string.Empty;
+                var usuario = await _usuarioRepository.AddDepartamento(usuarioDepartamento);
+
+                if (!usuario.Departamentos!.Any(d => d.Id == usuarioDepartamento.Id))
+                    throw new Exception("Departamento não cadastrado.");
+
+
+                resposta = JsonConvert.SerializeObject(new { Mensagem = "Departamento cadastrado." }, jsonSerializerSettings);
+
+                return Ok(resposta);
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
         [HttpPut("Update")]
         public ActionResult Update([FromBody] Usuario usuario)
         {
@@ -196,6 +221,30 @@ namespace eCommerce.API.Controllers
                 }
 
                 resposta = JsonConvert.SerializeObject(new { Mensagem = "Endereço removido." }, jsonSerializerSettings);
+
+                return Ok(resposta);
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
+        [HttpDelete("Remove/Departamento")]
+        public async Task<ActionResult> RemoveDepartamento([FromBody] ViewModelUsuarioDepartamento usuarioDepartamento)
+        {
+            try
+            {
+                var resposta = string.Empty;
+                var usuario = await _usuarioRepository.RemoveDepartamento(usuarioDepartamento);
+
+                if (usuario.Departamentos!.Any(d => d.Id == usuarioDepartamento.Id))
+                    throw new Exception("Departamento não foi removido.");
+
+
+                resposta = JsonConvert.SerializeObject(new { Mensagem = "Departamento removido." }, jsonSerializerSettings);
 
                 return Ok(resposta);
 
