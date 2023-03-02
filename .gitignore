@@ -484,3 +484,13 @@ $RECYCLE.BIN/
 /eCommerce.API/bin
 /eCommerce.Models/bin
 /eCommerce.Models/obj
+/.vs
+bin
+/eCommerce.API/bin
+/eCommerce.Infra/bin
+/eCommerce.Infra/obj
+/eCommerce.Models/bin
+/eCommerce.Models/obj
+/eCommerce.Models.DataAnnotations/bin
+/eCommerce.Models.DataAnnotations/obj
+/.vscode
