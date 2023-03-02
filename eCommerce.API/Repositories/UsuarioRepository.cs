@@ -2,6 +2,7 @@
 using eCommerce.Models;
 using eCommerce.Models.Enum;
 using eCommerce.Models.ViewModels;
+using eCommerce.API.Repositories.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace eCommerce.API.Repositories
@@ -18,8 +19,9 @@ namespace eCommerce.API.Repositories
 
         public async Task<ICollection<Usuario>> GetAll()
         {
-
-            var usuarios = await _db.Usuarios
+            try
+            {
+                 var usuarios = await _db.Usuarios
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
@@ -29,22 +31,38 @@ namespace eCommerce.API.Repositories
                 return null;
 
             return usuarios;
+            }
+            catch (Exception e)
+            {
+                throw new UsuarioRepositoryException($"Erro ao consulta lista de usuários: {e.Message}", e);
+            }
+
+           
         }
 
         public async Task<Usuario> GetById(int id)
         {
-            var usuario = await _db.Usuarios
+            try{
+                var usuario = await _db.Usuarios
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
                 .FirstOrDefaultAsync(u => u.Id == id)!;
 
             return usuario;
+            }
+            catch(Exception e){
+                throw new UsuarioRepositoryException($"Erro ao consultar usuário: {e.Message}", e);
+            }
+            
         }
 
         public async Task<ICollection<Usuario>> GetBySituacaoCadastral(SituacaoCadastral situacao)
         {
-            var usuarios = await _db.Usuarios
+
+            try
+            {
+                var usuarios = await _db.Usuarios
                 .Include(u => u.Contato)
                 .Include(u => u.EnderecosEntrega)
                 .Include(u => u.Departamentos)
@@ -55,48 +73,79 @@ namespace eCommerce.API.Repositories
                 return null;
 
             return usuarios;
+            }
+            catch (Exception e)
+            {
+                
+                throw new UsuarioRepositoryException($"Erro ao listar usuários pela situação cadastral: {e.Message}", e);
+            }
+            
         }
         public Usuario Add(Usuario usuario)
         {
-            _db.Usuarios.Add(usuario);
+            try
+            {
+                 _db.Usuarios.Add(usuario);
 
             _db.SaveChanges();
 
             return _db.Usuarios.FirstOrDefault(u => u == usuario)!;
+            }
+            catch (Exception e)
+            {
+                throw new UsuarioRepositoryException($"Erro ao cadastrar usuário: {e.Message}", e);
+            }
+           
         }
 
         public bool Delete(int id)
         {
-            var usuario = _db.Usuarios.Find(id);
-
-            if (usuario != null)
+            try
             {
-                _db.Usuarios.Remove(usuario);
+                var usuario = _db.Usuarios.Find(id);
+
+            if (usuario == null)
+                return false;  
+
+            _db.Usuarios.Remove(usuario);
 
                 _db.SaveChanges();
 
                 return true;
-            }
 
-            return false;
+            }
+            catch (Exception e)
+            {
+                
+                throw new UsuarioRepositoryException($"Erro ao deletar cadastro de usuário: {e.Message}", e);
+            }
+            
         }
 
         public async Task<Usuario> Update(Usuario usuario)
         {
+            try
+            {
             _db.Usuarios.Update(usuario);
             _db.SaveChanges();
 
-            return await _db.Usuarios
-                .Include(u => u.Contato)
-                .Include(u => u.EnderecosEntrega)
-                .Include(u => u.Departamentos)
-                .FirstOrDefaultAsync(u => u.Id == usuario.Id)!;
+            return usuario;
+
+            }
+            catch (Exception e)
+            {
+                throw new UsuarioRepositoryException($"Erro ao alterar cadastro de usuário: {e.Message}", e);
+            }
+           
 
         }
 
         public async Task<Usuario> AddEndereco(EnderecoEntrega enderecoEntrega)
         {
-            var usuario = await GetById(enderecoEntrega.UsuarioId);
+
+            try
+            {
+                var usuario = await GetById(enderecoEntrega.UsuarioId);
 
             if (usuario == null)
                 throw new Exception("Usuário não encontrado no banco de dados.");
@@ -111,22 +160,25 @@ namespace eCommerce.API.Repositories
 
             _db.SaveChanges();
 
-            usuario = await GetById(enderecoEntrega.UsuarioId); //garantir que o usuário retornado é o que está no banco
-
             return usuario;
+            }
+            catch (Exception e)
+            {
+                
+                throw new UsuarioRepositoryException($"Erro ao vincular endereço ao usuário: {e.Message}", e);
+            }
+            
 
         }
 
         public async Task<Usuario> UpdateEndereco(EnderecoEntrega enderecoEntrega)
         {
-
-            var usuario = await GetById(enderecoEntrega.UsuarioId);
+            try
+            {
+                var usuario = await GetById(enderecoEntrega.UsuarioId);
 
             if (!UsuarioJaPossuiEnderecoCadastrado(enderecoEntrega))
                 throw new Exception("Usuário não possui este endereço cadastrado.");
-
-            try
-            {
                 var endereco = usuario.EnderecosEntrega.First(e => e.Id == enderecoEntrega.Id);
 
                 endereco.NomeEndereco = enderecoEntrega.NomeEndereco;
@@ -144,19 +196,20 @@ namespace eCommerce.API.Repositories
             }
             catch (Exception e)
             {
-                throw new Exception("Ocorreu um erro ao alterar o endereço.", e);
+                throw new UsuarioRepositoryException($"Erro ao alterar o endereço: {e.Message}", e);
             }
         }
 
         public async Task<Usuario> RemoveEndereco(EnderecoEntrega enderecoEntrega)
         {
-            var usuario = await GetById(enderecoEntrega.UsuarioId);
+            
+            try
+            {
+                var usuario = await GetById(enderecoEntrega.UsuarioId);
 
             if (!UsuarioJaPossuiEnderecoCadastrado(enderecoEntrega))
                 throw new Exception("Usuário não possui este endereço cadastrado.");
 
-            try
-            {
                 usuario.EnderecosEntrega.Remove(usuario.EnderecosEntrega.First(e => e.Id == enderecoEntrega.Id));
                 _db.SaveChanges();
 
@@ -164,14 +217,17 @@ namespace eCommerce.API.Repositories
             }
             catch (Exception e)
             {
-                throw new Exception("Ocorreu um erro ao excluir endereço.", e);
+                throw new UsuarioRepositoryException($"Erro ao excluir endereço: {e.Message}", e);
             }
         }
 
 
         public async Task<Usuario> AddDepartamento(ViewModelUsuarioDepartamento usuarioDepartamento)
         {
-            var usuario = await GetById(usuarioDepartamento.UsuarioId);
+
+            try
+            {
+                 var usuario = await GetById(usuarioDepartamento.UsuarioId);
            var departamento = _db.Departamentos.Find(usuarioDepartamento.Id);
 
 
@@ -187,18 +243,25 @@ namespace eCommerce.API.Repositories
             if (DepartamentoJaVinculadoAoUsuario(usuario, departamento))
                 throw new Exception("Usuário já possui este endereço cadastrado.");
 
-            
-            
             usuario.Departamentos.Add(departamento);
 
             _db.SaveChanges();
 
             return usuario;
+            }
+            catch (Exception e)
+            {
+                
+                throw new UsuarioRepositoryException($"Erro ao vincular departamento ao usuário: {e.Message}", e);
+            }
+           
         }
     
         public async Task<Usuario> RemoveDepartamento(ViewModelUsuarioDepartamento usuarioDepartamento)
         {
-            var usuario = await GetById(usuarioDepartamento.UsuarioId);
+            try
+            {
+                var usuario = await GetById(usuarioDepartamento.UsuarioId);
             var departamento = _db.Departamentos.Find(usuarioDepartamento.Id);
 
             if (usuario == null)
@@ -216,6 +279,13 @@ namespace eCommerce.API.Repositories
             _db.SaveChanges();
 
             return usuario;
+            }
+            catch (Exception e)
+            {
+                
+                throw new UsuarioRepositoryException($"Erro ao remover departamento do usuário: {e.Message}", e);
+            }
+            
         }
 
         private bool UsuarioJaPossuiEnderecoCadastrado(EnderecoEntrega enderecoEntrega)

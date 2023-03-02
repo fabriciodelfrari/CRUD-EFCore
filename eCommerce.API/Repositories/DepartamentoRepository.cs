@@ -1,5 +1,6 @@
 ﻿using eCommerce.API.Database;
 using eCommerce.Models;
+using eCommerce.API.Repositories.Exceptions;
 
 namespace eCommerce.API.Repositories
 {
@@ -15,50 +16,104 @@ namespace eCommerce.API.Repositories
 
         public Departamento GetById(int id)
         {
-            return _db.Departamentos.FirstOrDefault(d => d.Id == id, null)!;
+            try
+            {
+                return _db.Departamentos.FirstOrDefault(d => d.Id == id, null)!;
+            }
+            catch (Exception e)
+            {
+                throw new DepartamentoRepositoryException($"Erro ao consultar departamento: {e.Message}", e);
+            }
+
         }
         public Departamento GetByName(string nome)
         {
-            return _db.Departamentos.FirstOrDefault(d => d.Nome == nome, null)!;
+            try
+            {
+                return _db.Departamentos.FirstOrDefault(d => d.Nome == nome, null)!;
+            }
+            catch (Exception e)
+            {
+                throw new DepartamentoRepositoryException($"Erro ao consultar departamento: {e.Message}", e);
+            }
+
         }
         public ICollection<Departamento> GetAll()
         {
-            return _db.Departamentos.ToList();
+            try
+            {
+                return _db.Departamentos.ToList();
+            }
+            catch (Exception e)
+            {
+
+                throw new DepartamentoRepositoryException($"Erro ao consultar a lista de departamentos: {e.Message}", e);
+            }
+
         }
 
         public Departamento Add(Departamento departamento)
         {
-            bool depExiste = GetByName(departamento.Nome) != null;
-            
-            if (depExiste)
-                return null;
 
-            _db.Departamentos.Add(departamento);
+            try
+            {
+                bool depExiste = GetByName(departamento.Nome) != null;
 
-            _db.SaveChanges();
+                if (depExiste)
+                    return null;
 
-            return GetByName(departamento.Nome);
+                _db.Departamentos.Add(departamento);
+
+                _db.SaveChanges();
+
+                return GetByName(departamento.Nome);
+
+            }
+            catch (Exception e)
+            {
+
+                throw new DepartamentoRepositoryException($"Erro ao cadastrar departamento: {e.Message}", e);
+            }
+
 
         }
 
         public bool Delete(int id)
         {
-            var departamento = GetById(id);
+            try
+            {
+                var departamento = GetById(id);
 
-            if (departamento == null)
-                return false;
+                if (departamento == null)
+                    return false;
 
-            _db.Departamentos.Remove(departamento);
-            _db.SaveChanges();
+                _db.Departamentos.Remove(departamento);
+                _db.SaveChanges();
 
-            return true;
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                throw new DepartamentoRepositoryException($"Erro ao deletar departamento: {e.Message}", e);
+            }
+
         }
 
         public Departamento Update(Departamento departamento)
         {
-            _db.Departamentos.Update(departamento);
+            try
+            {
+                _db.Departamentos.Update(departamento);
 
-            return GetById(departamento.Id);
+                return GetById(departamento.Id);
+            }
+            catch (Exception e)
+            {
+
+                throw new DepartamentoRepositoryException($"Erro ao alterar cadastro do departamento: {e.Message}", e);
+            }
+
         }
     }
 }
