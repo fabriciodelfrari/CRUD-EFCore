@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCommerce.API", "eCommerce.API\eCommerce.API.csproj", "{28F4F23C-37F4-4490-BAF2-8F2A99B6DB40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eCommerce.API", "eCommerce.API\eCommerce.API.csproj", "{28F4F23C-37F4-4490-BAF2-8F2A99B6DB40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCommerce.Models", "eCommerce.Models\eCommerce.Models.csproj", "{BE43005A-2202-4D6D-BEA8-06167F767FB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eCommerce.Models", "eCommerce.Models\eCommerce.Models.csproj", "{BE43005A-2202-4D6D-BEA8-06167F767FB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCommerce.Models.DataAnnotations", "eCommerce.Models.DataAnnotations\eCommerce.Models.DataAnnotations.csproj", "{840A2536-947B-42A4-B142-3FB87302D417}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCommerce.Infra", "eCommerce.Infra\eCommerce.Infra.csproj", "{7B21764A-866A-4F3B-9012-5053252FAB83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{BE43005A-2202-4D6D-BEA8-06167F767FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE43005A-2202-4D6D-BEA8-06167F767FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE43005A-2202-4D6D-BEA8-06167F767FB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{840A2536-947B-42A4-B142-3FB87302D417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{840A2536-947B-42A4-B142-3FB87302D417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{840A2536-947B-42A4-B142-3FB87302D417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{840A2536-947B-42A4-B142-3FB87302D417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B21764A-866A-4F3B-9012-5053252FAB83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B21764A-866A-4F3B-9012-5053252FAB83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B21764A-866A-4F3B-9012-5053252FAB83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B21764A-866A-4F3B-9012-5053252FAB83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

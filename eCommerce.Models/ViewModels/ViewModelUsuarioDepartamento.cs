@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eCommerce.Models
+namespace eCommerce.Models.ViewModels
 {
-    public class Departamento
+    public class ViewModelUsuarioDepartamento
     {
         public int Id { get; set; }
+        public int UsuarioId { get; set; } 
         public string Nome { get; set; }
-        public ICollection<Usuario> Usuarios { get; set; }
+        
 
-        public Departamento()
+        public ViewModelUsuarioDepartamento()
         {
-            Id = 0;
         }
     }
 }

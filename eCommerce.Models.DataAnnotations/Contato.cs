@@ -7,15 +7,19 @@ using System.Threading.Tasks;
 
 namespace eCommerce.Models
 {
-    public class Departamento
+    public class Contato
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public ICollection<Usuario> Usuarios { get; set; }
+        public int UsuarioId { get; set; }
+        public string? Telefone { get; set; }
+        public string? Celular { get; set; }
 
-        public Departamento()
+        
+
+
+        public Contato()
         {
-            Id = 0;
+
         }
     }
 }
